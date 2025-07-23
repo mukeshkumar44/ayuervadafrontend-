@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import Navbar from './components/Navbar';
 import Register from './components/Register';
 import Login from './components/Login';
@@ -19,29 +19,14 @@ import Checkout from './components/Checkout';
 import ProductFormPage from './pages/ProductFormPage';
 import { Toaster } from 'react-hot-toast';
 import AboutUs from './components/AboutUs';
-<<<<<<< HEAD
 import ProductSlider from './components/ProductSlider';
-=======
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import { SellerAuthProvider } from './context/SellerAuthContext';
 import ProductDetails from './components/ProductDetails';
-import { createContext } from 'react';
 import Orders from './components/Orders';
 
 export const AuthContext = createContext();
-
->>>>>>> 3f782f1ca459b1389a4095269d2489f23c2cb3d4
-// Protected Route Component
-const ProtectedRouteComponent = ({ children }) => {
-  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  return children;
-};
 
 // ProductSlider wrapper component that only shows on home page
 const ConditionalProductSlider = () => {
@@ -79,43 +64,6 @@ function App() {
   }
 
   return (
-<<<<<<< HEAD
-    <Router>
-      <Scrolltop />
-      <div className="flex flex-col min-h-screen">
-        <Navbar />
-        <ConditionalProductSlider />
-        <Toaster position="top-center" reverseOrder={false} />
-        <main className="flex-grow pt-16">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/verify-otp" element={<VerifyOtp />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/profile" element={
-                <ProtectedRoute>
-                    <Profile />
-                </ProtectedRoute>
-            } />
-            <Route path="/seller/login" element={<SellerLogin />} />
-            <Route path="/seller/register" element={<SellerRegister />} />
-            <Route path="/seller/dashboard" element={<SellerDashboard />} />
-            <Route path="/seller/verify-otp" element={<SellerVerifyOTP />} />
-            <Route path="/add-product" element={<ProductFormPage mode="add" />} />
-            <Route path="/edit-product/:id" element={<ProductFormPage mode="edit" />} />
-            <Route path="/about" element={<AboutUs />} />
-            {/* Catch all route - redirect to home */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-=======
     <AuthProvider>
       <SellerAuthProvider>
         <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, userProfile, setUserProfile }}>
@@ -123,6 +71,7 @@ function App() {
             <Scrolltop />
             <div className="flex flex-col min-h-screen">
               <Navbar />
+              <ConditionalProductSlider />
               <Toaster position="top-center" reverseOrder={false} />
               <main className="flex-grow pt-16">
                 <Routes>
@@ -158,7 +107,6 @@ function App() {
         </AuthContext.Provider>
       </SellerAuthProvider>
     </AuthProvider>
->>>>>>> 3f782f1ca459b1389a4095269d2489f23c2cb3d4
   );
 }
 
